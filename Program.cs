@@ -1,90 +1,32 @@
 ﻿namespace dotnet;
 
-// Вариант 20
-
 class Program
 {
     static void Main()
     {
-        Console.Write("Введите значение k: ");
+        const int height = 7;
+        const string tab = "    ";
 
-        int k = Convert.ToInt32(Console.ReadLine());
-        double z = CalculateProduct(k);
-
-        Console.WriteLine($"Z = {z}");
-    }
-
-    static double CalculateProduct(int k)
-    {
-        double product = 1;
-
-        for (int j = -4; j <= k; j++)
+        for (int i = height; i >= 1; i--)
         {
-            double factor = CalculateFactor(k, j);
-            if (factor != 0)
+            for (int j = 3; j <= i; j++)
             {
-                product *= factor;
+                Console.Write($"2{tab}");
             }
-        }
+            Console.WriteLine();
 
-        return product;
-    }
-
-    static double CalculateFactor(int k, int j)
-    {
-        double numerator = k * (j + 2);
-        double denominator = j - 3;
-
-        if (denominator == 0 || double.IsInfinity(denominator))
-        {
-            return 0;
-        }
-
-        double factor = numerator / denominator;
-        if (double.IsInfinity(factor) || factor == 0)
-        {
-            return 0;
-        }
-
-        double sum = CalculateSum(k, j);
-        if (sum == 0)
-        {
-            return 0;
-        }
-
-        return factor * sum;
-    }
-
-    static double CalculateSum(int k, int j)
-    {
-        double sum = 0;
-        for (int i = j; i <= k; i++)
-        {
-            double sumTerm = CalculateSumTerm(k, i);
-            if (sumTerm != 0)
+            for (int j = 3; j <= i; j++)
             {
-                sum += sumTerm;
+                var numberToPrint = i switch
+                {
+                    3 => j - 4,
+                    4 => j - 3,
+                    5 => j - 2,
+                    _ => (i % 2 != 0) ? j : j - 1,
+                };
+                Console.Write($"{numberToPrint}{tab}");
             }
+            Console.WriteLine();
         }
-        return sum;
-    }
-
-    static double CalculateSumTerm(int k, int i)
-    {
-        double numerator = Math.Sqrt(i + 5);
-        double denominator = i - 11 - Math.Pow(k, 5 * i);
-
-        if (denominator == 0 || double.IsInfinity(denominator))
-        {
-            return 0;
-        }
-
-        double sumTerm = numerator / denominator;
-        if (double.IsInfinity(sumTerm) || sumTerm == 0)
-        {
-            return 0;
-        }
-
-        return sumTerm;
     }
 }
